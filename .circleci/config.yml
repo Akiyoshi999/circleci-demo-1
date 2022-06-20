@@ -19,21 +19,21 @@ jobs:
 
     steps:
       - checkout
-    - run:
-        name: install pdt_mysql
-        command: |
+      - run:
+          name: install pdt_mysql
+          command: |
             sudo apt-get update
 
-    - restore_cache:
-        key: composer-v1-{{ checksum "composer.lock" }}
+      - restore_cache:
+          key: composer-v1-{{ checksum "composer.lock" }}
 
-    - run: composer install -n --prefer-dist
+      - run: composer install -n --prefer-dist
 
-    - save_cache:
-        key: composer-v1-{{ checksum "composer.lock" }}
-        paths:
-        - vendor
+      - save_cache:
+          key: composer-v1-{{ checksum "composer.lock" }}
+          paths:
+            - vendor
 
-    - run:
-        name: php test
-        command: vendor/bin/phpunit
+      - run:
+          name: php test
+          command: vendor/bin/phpunit
